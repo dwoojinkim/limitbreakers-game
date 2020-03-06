@@ -794,7 +794,7 @@ GameObject:
   - component: {fileID: 1126609745}
   - component: {fileID: 1126609743}
   m_Layer: 8
-  m_Name: BoxFighter
+  m_Name: BoxFighter1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

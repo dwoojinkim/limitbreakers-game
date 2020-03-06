@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
                     rb2D.velocity = Vector2.right * rb2D.velocity.x;
 
                 isQuickFalling = true;
+                canDoubleJump = false;
             }
         }
 
@@ -89,6 +90,18 @@ public class PlayerController : MonoBehaviour
             else
                 canDoubleJump = false;
             //debugText.text = "Jump";
+        }
+
+        if (Input.GetButtonUp("Action"))
+        {
+            if (!canPickupWeapon && equippedWeapon != null && equippedWeapon.GetComponent<Weapon>().Charging)
+            {
+                equippedWeapon.GetComponent<Rigidbody2D>().simulated = true;
+                equippedWeapon.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+                equippedWeapon.parent = null;
+                equippedWeapon.GetComponent<Weapon>().Throw();
+                equippedWeapon = null;
+            }
         }
 
         if (Input.GetButtonDown("Action"))
@@ -104,13 +117,8 @@ public class PlayerController : MonoBehaviour
             }
             else if (!canPickupWeapon && equippedWeapon != null)
             {
-                equippedWeapon.GetComponent<Rigidbody2D>().simulated = true;
-                //equippedWeapon.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
-                equippedWeapon.parent = null;
-                equippedWeapon.GetComponent<Weapon>().Throw();
-                equippedWeapon = null;
+                equippedWeapon.GetComponent<Weapon>().Charging = true;
             }
-
         }
     }
 
