@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
 
     private float baseThrowSpeed = 20.0f;
     private float chargeSpeed = 0.0f;
-    private float maxChargeSpeed = 100.0f;
+    private float maxChargeSpeed = 75.0f;
     private float chargeRate = 35.0f;
 
     // Start is called before the first frame update

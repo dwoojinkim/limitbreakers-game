@@ -122,6 +122,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void KillPlayer()
+    {
+        Debug.Log(gameObject.name + " has been killed!");
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         switch (col.gameObject.tag)
