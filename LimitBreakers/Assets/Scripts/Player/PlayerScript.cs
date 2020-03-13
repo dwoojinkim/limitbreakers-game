@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PlayerController : MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
     public GameObject debugTextObject;
     private TextMeshPro debugText;
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckInput();
+        //CheckInput();
 
         //rb2D.velocity = (Vector2.right * xSpeed) + (Vector2.up * rb2D.velocity.y);
         transform.position += Vector3.right * xSpeed * Time.deltaTime;
@@ -57,6 +57,77 @@ public class PlayerController : MonoBehaviour
                     rb2D.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
             }
         }
+    }
+
+    public void PlayerMovement(float horizontalAxis)
+    {
+        xSpeed = horizontalAxis * movementSpeed;
+
+        if (isOnLeftWall && xSpeed < 0)
+            xSpeed = 0;
+        else if (isOnRightWall && xSpeed > 0)
+            xSpeed = 0;
+    }
+
+    public void QuickFall(float verticalAxis)
+    {
+            if (verticalAxis < 0 && !isOnGround && !isQuickFalling)
+            {
+                //Quick fall code
+                if (rb2D.velocity.y > 0)
+                    rb2D.velocity = Vector2.right * rb2D.velocity.x;
+
+                isQuickFalling = true;
+                canDoubleJump = false;
+            }
+    }
+
+    public void Jump()
+    {
+        if (canJump || canDoubleJump)
+        {
+            rb2D.velocity = Vector2.up * jumpPower;
+            if (canJump)
+                canJump = false;
+            else
+                canDoubleJump = false;
+            //debugText.text = "Jump";
+        }
+    }
+
+    public void PlayerActionPress()
+    {
+        if (canPickupWeapon)
+            PickupWeapon();
+        else if (!canPickupWeapon && equippedWeapon != null)
+            equippedWeapon.GetComponent<Weapon>().Charging = true;
+    }
+
+    public void PlayerActionRelease()
+    {
+        if (!canPickupWeapon && equippedWeapon != null && equippedWeapon.GetComponent<Weapon>().Charging)
+        {
+            ThrowWeapon();
+        }
+    }
+
+    private void PickupWeapon()
+    {
+        equippedWeapon = equippableWeapon;
+        equippedWeapon.GetComponent<Rigidbody2D>().simulated = false;
+        equippedWeapon.parent = this.transform;
+        equippedWeapon.transform.localPosition = new Vector3(0.5f, 0, 0);
+        equippedWeapon.transform.localRotation = Quaternion.Euler(0, 0, 90);
+        canPickupWeapon = false;
+    }
+
+    private void ThrowWeapon()
+    {
+        equippedWeapon.GetComponent<Rigidbody2D>().simulated = true;
+        equippedWeapon.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+        equippedWeapon.parent = null;
+        equippedWeapon.GetComponent<Weapon>().Throw();
+        equippedWeapon = null;
     }
 
     private void CheckInput()
