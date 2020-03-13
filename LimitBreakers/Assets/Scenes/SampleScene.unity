@@ -793,6 +793,7 @@ GameObject:
   - component: {fileID: 1126609744}
   - component: {fileID: 1126609745}
   - component: {fileID: 1126609743}
+  - component: {fileID: 1126609746}
   m_Layer: 8
   m_Name: BoxFighter1
   m_TagString: Player
@@ -923,6 +924,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1126609746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126609740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be9f41a1eff1f974b8ea469b27097894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1129144522
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,6 +949,7 @@ GameObject:
   - component: {fileID: 1129144525}
   - component: {fileID: 1129144524}
   - component: {fileID: 1129144523}
+  - component: {fileID: 1129144528}
   m_Layer: 8
   m_Name: BoxFighter2
   m_TagString: Player
@@ -1066,6 +1080,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1129144528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129144522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577c5895c7db2dc448a5a1bfdae2778f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1236144939
 GameObject:
   m_ObjectHideFlags: 0

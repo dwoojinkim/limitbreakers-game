@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player1Controller : MonoBehaviour
+public class Player2Controller : MonoBehaviour
 {
     private PlayerScript playerScript;
 
@@ -20,23 +20,23 @@ public class Player1Controller : MonoBehaviour
 
     private void CheckInput()
     {
-        playerScript.PlayerMovement(Input.GetAxis("Horizontal_1"));
+        playerScript.PlayerMovement(Input.GetAxis("Horizontal_2"));
 
         if (Input.anyKeyDown)
-            playerScript.QuickFall(Input.GetAxis("Vertical_1"));
+            playerScript.QuickFall(Input.GetAxis("Vertical_2"));
 
-        if (Input.GetButtonDown("Jump_1"))
+        if (Input.GetButtonDown("Jump_2"))
         {
             playerScript.IsJumpHeld = true;
             playerScript.Jump();
         }
-        else if (Input.GetButtonUp("Jump_1"))
+        else if (Input.GetButtonUp("Jump_2"))
             playerScript.IsJumpHeld = false;
 
-        if (Input.GetButtonDown("Action_1"))
+        if (Input.GetButtonDown("Action_2"))
             playerScript.PlayerActionPress();
 
-        if (Input.GetButtonUp("Action_1"))
+        if (Input.GetButtonUp("Action_2"))
             playerScript.PlayerActionRelease();
     }
 }

@@ -27,6 +27,8 @@ public class PlayerScript : MonoBehaviour
     private Transform equippableWeapon = null;
     private Vector3 updatedPosition;
 
+    public bool IsJumpHeld { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +53,7 @@ public class PlayerScript : MonoBehaviour
                 rb2D.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
             else if (rb2D.velocity.y > 0)
             {
-                if (Input.GetButton("Jump"))
+                if (IsJumpHeld)
                     rb2D.velocity += Vector2.up * Physics2D.gravity.y * (jumpDrag - 1) * Time.deltaTime;
                 else
                     rb2D.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
