@@ -40,8 +40,6 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //CheckInput();
-
         //rb2D.velocity = (Vector2.right * xSpeed) + (Vector2.up * rb2D.velocity.y);
         transform.position += Vector3.right * xSpeed * Time.deltaTime;
 
@@ -128,71 +126,8 @@ public class PlayerScript : MonoBehaviour
         equippedWeapon.GetComponent<Rigidbody2D>().simulated = true;
         equippedWeapon.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
         equippedWeapon.parent = null;
-        equippedWeapon.GetComponent<Weapon>().Throw();
+        equippedWeapon.GetComponent<Weapon>().Throw(gameObject.layer);
         equippedWeapon = null;
-    }
-
-    private void CheckInput()
-    {
-        xSpeed = Input.GetAxis("Horizontal") * movementSpeed;
-        
-        if (isOnLeftWall && xSpeed < 0)
-            xSpeed = 0;
-        else if (isOnRightWall && xSpeed > 0)
-            xSpeed = 0;
-
-        if (Input.anyKeyDown)
-        {
-            if (Input.GetAxis("Vertical") < 0 && !isOnGround && !isQuickFalling)
-            {
-                //Quick fall code
-                if (rb2D.velocity.y > 0)
-                    rb2D.velocity = Vector2.right * rb2D.velocity.x;
-
-                isQuickFalling = true;
-                canDoubleJump = false;
-            }
-        }
-
-
-        if (Input.GetButtonDown("Jump") && (canJump || canDoubleJump))
-        {
-            rb2D.velocity = Vector2.up * jumpPower;
-            if (canJump)
-                canJump = false;
-            else
-                canDoubleJump = false;
-            //debugText.text = "Jump";
-        }
-
-        if (Input.GetButtonUp("Action"))
-        {
-            if (!canPickupWeapon && equippedWeapon != null && equippedWeapon.GetComponent<Weapon>().Charging)
-            {
-                equippedWeapon.GetComponent<Rigidbody2D>().simulated = true;
-                equippedWeapon.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
-                equippedWeapon.parent = null;
-                equippedWeapon.GetComponent<Weapon>().Throw();
-                equippedWeapon = null;
-            }
-        }
-
-        if (Input.GetButtonDown("Action"))
-        {
-            if (canPickupWeapon)
-            {
-                equippedWeapon = equippableWeapon;
-                equippedWeapon.GetComponent<Rigidbody2D>().simulated = false;
-                equippedWeapon.parent = this.transform;
-                equippedWeapon.transform.localPosition = new Vector3(0.5f, 0, 0);
-                equippedWeapon.transform.localRotation = Quaternion.Euler(0, 0, 90);
-                canPickupWeapon = false;
-            }
-            else if (!canPickupWeapon && equippedWeapon != null)
-            {
-                equippedWeapon.GetComponent<Weapon>().Charging = true;
-            }
-        }
     }
 
     public void KillPlayer()
@@ -244,6 +179,10 @@ public class PlayerScript : MonoBehaviour
             canPickupWeapon = true;
             equippableWeapon = col.gameObject.transform.parent;
 
+            if (col.gameObject.transform.parent.GetComponent<Weapon>().Ownership != 0 && col.gameObject.transform.parent.GetComponent<Weapon>().Ownership != gameObject.layer)
+            {
+                KillPlayer();
+            }
         }
     }
 
