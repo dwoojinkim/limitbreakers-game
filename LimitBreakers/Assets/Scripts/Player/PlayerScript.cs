@@ -22,6 +22,9 @@ public class PlayerScript : MonoBehaviour
     private bool isQuickFalling = false;
     private bool isOnGround = false;
     private bool isOnLeftWall = false, isOnRightWall = false;
+    private bool isOnLeftSide = true;
+
+    private Sprite leftSprite, rightSprite;
 
     private Transform equippedWeapon = null;
     private Transform equippableWeapon = null;
@@ -35,11 +38,19 @@ public class PlayerScript : MonoBehaviour
         debugText = debugTextObject.GetComponent<TextMeshPro>();
 
         rb2D = gameObject.GetComponent<Rigidbody2D>();
+
+        leftSprite = Resources.Load<Sprite>("Characters/BoxFighter_Left");
+        rightSprite = Resources.Load<Sprite>("Characters/BoxFighter_Right");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isOnLeftSide)
+            debugText.text = "Left";
+        else
+            debugText.text = "Right";
+
         //rb2D.velocity = (Vector2.right * xSpeed) + (Vector2.up * rb2D.velocity.y);
         transform.position += Vector3.right * xSpeed * Time.deltaTime;
 
@@ -116,8 +127,11 @@ public class PlayerScript : MonoBehaviour
         equippedWeapon = equippableWeapon;
         equippedWeapon.GetComponent<Rigidbody2D>().simulated = false;
         equippedWeapon.parent = this.transform;
-        equippedWeapon.transform.localPosition = new Vector3(0.5f, 0, 0);
-        equippedWeapon.transform.localRotation = Quaternion.Euler(0, 0, 90);
+        if (isOnLeftSide)
+            equippedWeapon.GetComponent<Weapon>().SwitchWeaponSide("right");   //Weapon is FACING right side
+        else
+            equippedWeapon.GetComponent<Weapon>().SwitchWeaponSide("left");   //Weapon is FACING left side
+
         canPickupWeapon = false;
     }
 
@@ -133,6 +147,40 @@ public class PlayerScript : MonoBehaviour
     public void KillPlayer()
     {
         Debug.Log(gameObject.name + " has been killed!");
+    }
+
+    //TODO: Switching sides can be inherited from a more basic unit since weapons can also switch sides
+    public void SwitchPlayerSide()
+    {
+        if (isOnLeftSide)
+            SwitchPlayerSide("right");
+        else
+            SwitchPlayerSide("left");
+    }
+
+    public void SwitchPlayerSide(string side)
+    {
+        if (side == "right")
+        {
+            isOnLeftSide = false;
+
+            transform.GetComponent<SpriteRenderer>().sortingLayerName = "RightPlayer";
+            transform.GetComponent<SpriteRenderer>().sprite = rightSprite;
+
+            if (equippedWeapon != null)
+                equippedWeapon.GetComponent<Weapon>().SwitchWeaponSide("left");   //Weapon is FACING left side
+        }
+        else if (side == "left")
+        {
+            isOnLeftSide = true;
+
+            transform.GetComponent<SpriteRenderer>().sortingLayerName = "LeftPlayer";
+            transform.GetComponent<SpriteRenderer>().sprite = leftSprite;
+
+            if (equippedWeapon != null)
+                equippedWeapon.GetComponent<Weapon>().SwitchWeaponSide("right");   //Weapon is FACING right side
+        }
+        
     }
 
     void OnCollisionEnter2D(Collision2D col)

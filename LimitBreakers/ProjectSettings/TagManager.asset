@@ -45,3 +45,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: LeftPlayer
+    uniqueID: 3579286263
+    locked: 0
+  - name: RightPlayer
+    uniqueID: 4246262333
+    locked: 0
