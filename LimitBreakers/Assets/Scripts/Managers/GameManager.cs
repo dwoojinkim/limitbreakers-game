@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set;}
+
     public GameObject player1;
     public GameObject player2;
 
@@ -11,6 +13,17 @@ public class GameManager : MonoBehaviour
     private PlayerScript p2Script;
 
     private bool isP1OnLeftSide;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+    }
 
     // Start is called before the first frame update
     void Start()

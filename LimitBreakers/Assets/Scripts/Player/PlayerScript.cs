@@ -36,6 +36,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         debugText = debugTextObject.GetComponent<TextMeshPro>();
+        debugText.text = "";
 
         rb2D = gameObject.GetComponent<Rigidbody2D>();
 
@@ -46,11 +47,6 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isOnLeftSide)
-            debugText.text = "Left";
-        else
-            debugText.text = "Right";
-
         //rb2D.velocity = (Vector2.right * xSpeed) + (Vector2.up * rb2D.velocity.y);
         transform.position += Vector3.right * xSpeed * Time.deltaTime;
 
@@ -229,6 +225,7 @@ public class PlayerScript : MonoBehaviour
 
             if (col.gameObject.transform.parent.GetComponent<Weapon>().Ownership != 0 && col.gameObject.transform.parent.GetComponent<Weapon>().Ownership != gameObject.layer)
             {
+                FindObjectOfType<HitStop>().Stop(0.1f);
                 KillPlayer();
             }
         }
