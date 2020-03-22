@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour
 {
     public GameObject debugTextObject;
     private TextMeshPro debugText;
+    private GameManager gameManager;
 
     private Rigidbody2D rb2D;
     private float movementSpeed = 10.0f;
@@ -35,6 +36,8 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         debugText = debugTextObject.GetComponent<TextMeshPro>();
         debugText.text = "";
 
@@ -143,6 +146,7 @@ public class PlayerScript : MonoBehaviour
     public void KillPlayer()
     {
         Debug.Log(gameObject.name + " has been killed!");
+        gameManager.ReduceStock(LayerMask.LayerToName(gameObject.layer));
     }
 
     //TODO: Switching sides can be inherited from a more basic unit since weapons can also switch sides
@@ -225,7 +229,7 @@ public class PlayerScript : MonoBehaviour
 
             if (col.gameObject.transform.parent.GetComponent<Weapon>().Ownership != 0 && col.gameObject.transform.parent.GetComponent<Weapon>().Ownership != gameObject.layer)
             {
-                FindObjectOfType<HitStop>().Stop(0.1f);
+                FindObjectOfType<HitStop>().Stop(0.05f);
                 KillPlayer();
             }
         }
