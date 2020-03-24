@@ -183,6 +183,11 @@ public class PlayerScript : MonoBehaviour
         
     }
 
+    public void Reset()
+    {
+        //Logic to reset the state of the player
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         switch (col.gameObject.tag)
