@@ -183,9 +183,16 @@ public class PlayerScript : MonoBehaviour
         
     }
 
+    public void Respawn()
+    {
+        //Respawn logic here
+    }
+
     public void Reset()
     {
         //Logic to reset the state of the player
+        Debug.Log("Resetting " + this.name + "...");
+        rb2D.velocity = Vector2.zero;
     }
 
     void OnCollisionEnter2D(Collision2D col)

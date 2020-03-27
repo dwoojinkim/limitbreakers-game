@@ -13,10 +13,14 @@ public class Weapon : MonoBehaviour
     private float maxChargeSpeed = 75.0f;
     private float chargeRate = 35.0f;
 
+    private Rigidbody2D weaponRigidbody;
+
     // Start is called before the first frame update
     void Start()
     {
         Ownership = 0;
+
+        weaponRigidbody = transform.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -34,9 +38,9 @@ public class Weapon : MonoBehaviour
     {
         Charging = false;
         if (IsFacingRight)
-            transform.GetComponent<Rigidbody2D>().velocity += Vector2.right * (baseThrowSpeed + chargeSpeed);
+            weaponRigidbody.velocity += Vector2.right * (baseThrowSpeed + chargeSpeed);
         else
-            transform.GetComponent<Rigidbody2D>().velocity -= Vector2.right * (baseThrowSpeed + chargeSpeed);
+            weaponRigidbody.velocity -= Vector2.right * (baseThrowSpeed + chargeSpeed);
         chargeSpeed = 0.0f;
         Ownership = playerLayer;
     }
@@ -69,6 +73,17 @@ public class Weapon : MonoBehaviour
         }
         
     }
+
+    public void Reset()
+    {
+        Charging = false;
+        chargeSpeed = 0.0f;
+        weaponRigidbody.velocity = Vector2.zero;
+        transform.localRotation = Quaternion.Euler(0, 0, 0);
+        weaponRigidbody.constraints = RigidbodyConstraints2D.None;
+        Ownership = 0;
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Wall")

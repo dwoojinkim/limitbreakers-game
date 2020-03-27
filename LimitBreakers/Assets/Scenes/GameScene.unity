@@ -1202,8 +1202,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ca7fca0d71fc5489a042cddbdf11d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartingStock: 5
   player1: {fileID: 1126609740}
   player2: {fileID: 1129144522}
+  weapon: {fileID: 1761867956}
   p1StockTextObject: {fileID: 1937345027}
   p2StockTextObject: {fileID: 2090765278}
 --- !u!4 &1183198041
