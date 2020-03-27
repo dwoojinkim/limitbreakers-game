@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     private PlayerScript p1Script, p2Script;
     private TextMeshPro p1StockText, p2StockText;
-    private Vector3 p1StartPos, p2StartPos, weaponStartPos;
+    public Vector3 weaponStartPos;
 
     private int p1Stock, p2Stock;
 
@@ -39,8 +39,8 @@ public class GameManager : MonoBehaviour
         p1StockText = p1StockTextObject.GetComponent<TextMeshPro>();
         p2StockText = p2StockTextObject.GetComponent<TextMeshPro>();
 
-        p1StartPos = player1.transform.position;
-        p2StartPos = player2.transform.position;
+        p1Script.StartPos = player1.transform.position;
+        p2Script.StartPos = player2.transform.position;
         weaponStartPos = weapon.transform.position;
 
         p1Stock = StartingStock;
@@ -107,8 +107,5 @@ public class GameManager : MonoBehaviour
 
         p1Stock = StartingStock;
         p2Stock = StartingStock;
-
-        player1.transform.position = p1StartPos;
-        player2.transform.position = p2StartPos;
     }
 }
