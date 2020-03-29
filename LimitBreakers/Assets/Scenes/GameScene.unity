@@ -957,7 +957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugTextObject: {fileID: 1005475064}
-  particleSystem: {fileID: 1939410629}
+  chargingParticles: {fileID: 1939410629}
 --- !u!61 &1126609744
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1051,7 +1051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugTextObject: {fileID: 1236144939}
-  particleSystem: {fileID: 0}
+  chargingParticles: {fileID: 1979539189}
 --- !u!50 &1129144524
 Rigidbody2D:
   serializedVersion: 4
@@ -2905,21 +2905,21 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 0
+          value: 0.13513575
+          inSlope: 0.065487534
+          outSlope: 0.065487534
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.33333334
+          outWeight: 0.64039415
         - serializedVersion: 3
           time: 0.96666664
           value: 1
-          inSlope: 1
-          outSlope: 1
+          inSlope: 2.6013517
+          outSlope: 2.6013517
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
+          inWeight: 0.1773399
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -7617,21 +7617,21 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 0
+          value: 0.13513575
+          inSlope: 0.065487534
+          outSlope: 0.065487534
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.33333334
+          outWeight: 0.64039415
         - serializedVersion: 3
           time: 0.96666664
           value: 1
-          inSlope: 1
-          outSlope: 1
+          inSlope: 2.6013517
+          outSlope: 2.6013517
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
+          inWeight: 0.1773399
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
