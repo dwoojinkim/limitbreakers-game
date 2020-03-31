@@ -273,6 +273,7 @@ public class PlayerScript : MonoBehaviour
             {
                 FindObjectOfType<HitStop>().Stop(0.05f);
                 KillPlayer();
+                col.gameObject.transform.parent.GetComponent<Weapon>().DestroyWeapon();
             }
         }
     }

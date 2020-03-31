@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    public bool IsActive { get; set; }
     public bool Charging { get; set; }
     public bool IsFacingRight {get; set; }
     public int Ownership { get; set; }
 
     private float baseThrowSpeed = 20.0f;
     private float chargeSpeed = 0.0f;
-    private float maxChargeSpeed = 75.0f;
-    private float chargeRate = 35.0f;
+    private float maxChargeSpeed = 50.0f;
+    private float chargeRate = 25.0f;
 
     private Rigidbody2D weaponRigidbody;
 
@@ -26,11 +27,14 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Charging && chargeSpeed < maxChargeSpeed)
+        if (IsActive)
         {
-            chargeSpeed += chargeRate * Time.deltaTime;
-            if (chargeSpeed > maxChargeSpeed)
-                chargeSpeed = maxChargeSpeed;
+            if (Charging && chargeSpeed < maxChargeSpeed)
+            {
+                chargeSpeed += chargeRate * Time.deltaTime;
+                if (chargeSpeed > maxChargeSpeed)
+                    chargeSpeed = maxChargeSpeed;
+            }
         }
     }
 
@@ -82,6 +86,21 @@ public class Weapon : MonoBehaviour
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         weaponRigidbody.constraints = RigidbodyConstraints2D.None;
         Ownership = 0;
+    }
+
+    public void SpawnWeapon()
+    {
+        transform.GetComponent<BoxCollider2D>().enabled = true;
+        transform.GetComponent<SpriteRenderer>().enabled = true;
+        IsActive = true;
+        Reset();
+    }
+
+    public void DestroyWeapon()
+    {
+        transform.GetComponent<BoxCollider2D>().enabled = false;
+        transform.GetComponent<SpriteRenderer>().enabled = false;
+        IsActive = false;
     }
 
     void OnCollisionEnter2D(Collision2D col)
