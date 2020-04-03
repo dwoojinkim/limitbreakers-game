@@ -14,6 +14,8 @@ public class Weapon : MonoBehaviour
     private float maxChargeSpeed = 50.0f;
     private float chargeRate = 25.0f;
 
+    private WeaponSpawner weaponSpawner;
+
     private Rigidbody2D weaponRigidbody;
 
     // Start is called before the first frame update
@@ -22,6 +24,10 @@ public class Weapon : MonoBehaviour
         Ownership = 0;
 
         weaponRigidbody = transform.GetComponent<Rigidbody2D>();
+
+        Debug.Log(GameObject.Find("WeaponSpawner").name);
+        weaponSpawner = GameObject.Find("WeaponSpawner").GetComponent<WeaponSpawner>();
+        
     }
 
     // Update is called once per frame
@@ -101,6 +107,7 @@ public class Weapon : MonoBehaviour
         transform.GetComponent<BoxCollider2D>().enabled = false;
         transform.GetComponent<SpriteRenderer>().enabled = false;
         IsActive = false;
+        weaponSpawner.RemoveWeapon();
     }
 
     void OnCollisionEnter2D(Collision2D col)

@@ -8,12 +8,12 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set;}
 
     public int StartingStock = 5;
-    public GameObject player1, player2, weapon;
+    public GameObject player1, player2; //weapon;
     public GameObject p1StockTextObject, p2StockTextObject;
 
     private PlayerScript p1Script, p2Script;
     private TextMeshPro p1StockText, p2StockText;
-    public Vector3 weaponStartPos;
+    //public Vector3 weaponStartPos;
 
     private int p1Stock, p2Stock;
 
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
         p1Script.StartPos = player1.transform.position;
         p2Script.StartPos = player2.transform.position;
-        weaponStartPos = weapon.transform.position;
+        //weaponStartPos = weapon.transform.position;
 
         p1Stock = StartingStock;
         p2Stock = StartingStock;
@@ -98,8 +98,8 @@ public class GameManager : MonoBehaviour
     {
         //Resetting General game stuff
         Debug.Log("Resetting Game...");
-        weapon.GetComponent<Weapon>().Reset();
-        weapon.transform.position = weaponStartPos;
+        //weapon.GetComponent<Weapon>().Reset();
+        //weapon.transform.position = weaponStartPos;
 
         //Resetting Player specific stuff
         p1Script.Reset();
